@@ -678,4 +678,240 @@ A component class is like a factory that creates components. If you have a compo
 
 To make a component class, you use one of the methods in the React library: React.createClass.
  
-you know that `React.createClass's` job is to create a component class, which is like a factory for building React components. You also know that React.createClass is one of the methods on the object returned by require('react')
+you know that `React.createClass's` job is to create a component class, which is like a factory for building React components. You also know that `React.createClass` is one of the methods on the object returned by `require('react')`
+
+# Render function inside Component class 
+
+    React.createClass!
+
+For starters, these instructions should be stored in an object:
+
+    var instructions = {};
+
+There is only one property that you have to include in this object: a render function.
+
+A render function is a property whose name is render, and whose value is a function. The term "render function" can refer to the entire property, or to just the function part.
+    
+    var instructions = {
+      render: function () {}
+    };
+
+A render function must have a return statement. Usually, this return statement returns a JSX expression:
+
+    var instructions = {
+      render: function () {
+        return <h1>Hello world</h1>;
+      }
+    };
+
+Of course, none of this explains the point of a render function. All you know so far is that its name is render, it needs a return statement for some reason, and you have to include it in the object that you pass to React.createClass. We'll get to the 'why' of it soon!
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var componentBlueprint = { render: function () { return <h1>Hello world</h1> }}
+    var MyComponentClass = React.createClass(componentBlueprint);
+
+this is correct way to define a component class 
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var MyComponentClass = React.createClass( {
+        render: function () {
+            return <h1>Hello world</h1>;
+        }
+    });
+
+# Creating instance of component class 
+
+MyComponentClass is now a working component class! It's ready to follow its instructions object and make some React components.
+So, let's make a React component! It only takes one more line:
+
+    <MyComponentClass />
+
+To make a React component, you write a JSX element. Instead of naming your JSX element something like h1 or div like you've done before, give it the same name as a component class. Voilà, there's your component instance!
+JSX elements can be either HTML-like, or component instances. JSX uses capitalization to distinguish between the two! That is why component class names must begin with capital letters. In a JSX element, that capitalized first letter says, "I will be a component instance and not an HTML tag."
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var MyComponentClass = React.createClass( {
+        render: function () {
+            return <h1>Hello world</h1>;
+        }
+    });
+    
+    <MyComponentClass /> 
+
+Creating instance of component class 
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var MyComponentClass = React.createClass( {
+        render: function () {
+            return <h1>Hello world</h1>;
+        }
+    });
+    
+    ReactDOM.render(
+        <MyComponentClass />, 
+        document.getElementById('app')
+    );
+
+you have created a instance of render class 
+
+# Components and Advanced JSX markers
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var QuoteMaker = React.createClass({
+      render: function () {
+        return (
+          <blockquote>
+            <p>
+              The world is full of objects, more or less interesting; I do not wish to add any more.
+            </p>
+            <cite>
+              <a target="_blank"
+                href="http://bit.ly/1WGzM4G">
+                Douglas Huebler
+              </a>
+            </cite>
+          </blockquote>
+        );
+      }
+    });
+    
+    ReactDOM.render(
+      <QuoteMaker />,
+      document.getElementById('app')
+    );
+
+# React component and JSX 
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var redPanda = {
+      src: 'http://bit.ly/1U92LL3',
+      alt: 'Red Panda',
+      width:  '200px'
+    };
+    
+    var RedPanda = React.createClass({
+      render: function () {
+        return (
+          <div>
+            <h1>Cute Red Panda</h1>
+            <img 
+              src={redPanda.src} 
+              alt={redPanda.alt} 
+              width={redPanda.width} />
+          </div>
+        );
+      }
+    });
+    
+    ReactDOM.render(
+      <RedPanda />,
+      document.getElementById('app')
+    );
+ 
+ # React component with the variable list
+ 
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var friends = [
+      {
+        title: "Yummmmmmm",
+        src: "https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-monkeyweirdo.jpg"
+      },
+      {
+        title: "Hey Guys!  Wait Up!",
+        src: "https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-earnestfrog.jpg"
+      },
+      {
+        title: "Yikes",
+        src: "https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-alpaca.jpg"
+      }
+    ];
+    
+    // New component class starts here:
+    var Friend = React.createClass({
+      render: function () {
+        var friend = friends[2];
+        return (
+          <div>
+            <h1>{friend.title}</h1>
+            <img src={friend.src} />
+          </div>
+        );
+      }
+    });
+    
+    ReactDOM.render(
+      <Friend />,
+      document.getElementById('app')
+);
+
+# Using if else condition with the react component
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var fiftyFifty = Math.random() < 0.5;
+    
+    // React.createClass call begins here:
+    var TonightsPlan = React.createClass({
+      render: function () {
+        var place = fiftyFifty ? 'out' : 'to bed';
+        return <h1>Tonight I'm going {place} WOOO</h1>;
+      }
+    });
+    
+    ReactDOM.render(
+      document.getElementById('app')
+    );
+
+# Usage of this and react component 
+
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var MyName = React.createClass({
+        // name property goes here:
+      name: 'daphne',
+    
+      render: function () {
+        return <h1>My name is {this.name}.</h1>;
+      }
+    });
+    
+    ReactDOM.render(<MyName />, document.getElementById('app'));
+    
+# function , this, react component 
+
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    
+    var Button = React.createClass({
+      scream: function () {
+        alert('AAAAAAAAHHH!!!!!');
+      },
+    
+      render: function () {
+        return <button onClick={this.scream}>AAAAAH!</button>;
+      }
+    });
+    
+    ReactDOM.render(
+      <Button />,
+      document.getElementById('app')
+    );
+    
+ 
